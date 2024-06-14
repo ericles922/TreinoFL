@@ -1,93 +1,98 @@
 // ignore_for_file: file_names
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class HelpPage extends StatefulWidget {
-  const HelpPage({super.key});
+import 'package:flutter/material.dart';
+import 'package:treinoapp/Database/DatabaseHelper.dart';
+
+class MainPage extends StatefulWidget {
+  MainPage({super.key});
+
 
   @override
-  State<HelpPage> createState() => _HelpPageState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _HelpPageState extends State<HelpPage> {
-  bool _status = true;
+class _MainPageState extends State<MainPage> {
+
+ TextEditingController controladorSenha = TextEditingController();
+   TextEditingController controladorName = TextEditingController();
+   
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Configurações do Viveiro',
+          'Cadastros de Funcionários',
         ),
         leading: const Icon(
           Icons.arrow_back,
         ),
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: const Color.fromARGB(255, 255, 255, 255),
       body: Column(
         children: <Widget>[
-          //Expanded(),
-          Expanded(
-            child: ListTile(
-              title: const Text('Viverio DP1',
-                  style: TextStyle(
-                    fontSize: 35
-                    ,), 
-                  textAlign: TextAlign.right
-                  ,),
-              trailing: Icon(
-                Icons.edit_outlined,
-                textDirection: TextDirection.rtl,
-              ),
-              horizontalTitleGap: 1,
-              titleAlignment: ListTileTitleAlignment.center,
-              contentPadding: EdgeInsets.only(
-                right: 200,
-              ),
-            ),
-          ),
-          SwitchListTile(
-            value: _status,
-            onChanged: (val) {
-              setState(() {
-                _status = val;
-              });
-            },
-            title: const Text(
-              "Viveiro Ativo?",
-              style: TextStyle(
-                fontSize: 16,
-              ),
-            ),
-            activeColor: const Color.fromARGB(255, 255, 255, 255),
-            controlAffinity: ListTileControlAffinity.leading,
-            contentPadding: EdgeInsets.only(bottom: 500, left: 10),
-            activeTrackColor: Colors.brown,
-            materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-
-          ),
-          FilledButton(
-            onPressed: () {},
-            child: Text(
-              "Alterar",
-              style: TextStyle(
-                fontSize: 20,
-                color: Colors.white,
-              ),
-            ),
-            style: ButtonStyle(
-              backgroundColor: MaterialStatePropertyAll(
-                Colors.brown,
-              ),
-              fixedSize: MaterialStatePropertyAll(
-                Size.fromWidth(
-                  480,
+          Container(
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(top: 30),
+            child:  TextField(
+              decoration: InputDecoration(
+                labelText: 'Nome do Colaborador',
+                labelStyle: TextStyle(
+                  color: Colors.grey
                 ),
-              ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      10,
+                    ),
+                  ),
+                ),
+                constraints: BoxConstraints(maxWidth: 380),
+              ), 
+              controller: controladorSenha
             ),
           ),
-          Padding(padding: EdgeInsets.only(bottom: 20))
+          Container( 
+            alignment: Alignment.center,
+            padding: const EdgeInsets.only(top: 20),
+            child:  TextField(
+              decoration: InputDecoration(
+                labelText: 'Senha', 
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      10,
+                    ),
+                  ),
+                ),
+                labelStyle: TextStyle(color: Colors.grey),
+                constraints: BoxConstraints(maxWidth: 380),
+              ), controller: controladorSenha
+            ),
+          ),
+          ElevatedButton(
+            onPressed: (){
+                 String name = controladorName.text;
+                   String? senha = controladorSenha.text;
+              },
+            child: Text(
+              'Salvar',
+            ),
+          ),
         ],
       ),
+      backgroundColor: Colors.white,
     );
   }
+  
+}
+class Funcionario {
+  final String name;
+  final int senha;
+
+  Funcionario(
+    this.name,
+    this.senha
+  );
 }

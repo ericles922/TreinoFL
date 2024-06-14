@@ -12,7 +12,7 @@ class _MyWidgetState extends State<MyWidget> {
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
-      home: HelpPage(),
+      home: MainPage(),
     );
   }
 }
