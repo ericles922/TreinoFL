@@ -1,22 +1,12 @@
 // ignore_for_file: file_names
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:treinoapp/Database/DatabaseHelper.dart';
 
-class MainPage extends StatefulWidget {
+class MainPage extends StatelessWidget {
   MainPage({super.key});
 
+  TextEditingController controladorSenha = TextEditingController();
 
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-
- TextEditingController controladorSenha = TextEditingController();
-   TextEditingController controladorName = TextEditingController();
-   
+  TextEditingController controladorName = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +18,25 @@ class _MainPageState extends State<MainPage> {
         leading: const Icon(
           Icons.arrow_back,
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: const Color.fromARGB(
+          255,
+          212,
+          195,
+          195,
+        ),
       ),
       body: Column(
         children: <Widget>[
           Container(
             alignment: Alignment.center,
-            padding: const EdgeInsets.only(top: 30),
-            child:  TextField(
-              decoration: InputDecoration(
+            padding: const EdgeInsets.all(
+              20,
+            ),
+            child: TextField(
+              decoration: const InputDecoration(
                 labelText: 'Nome do Colaborador',
                 labelStyle: TextStyle(
-                  color: Colors.grey
+                  color: Colors.grey,
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
@@ -49,16 +46,18 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 constraints: BoxConstraints(maxWidth: 380),
-              ), 
-              controller: controladorSenha
+              ),
+              controller: controladorSenha,
             ),
           ),
-          Container( 
+          Container(
             alignment: Alignment.center,
-            padding: const EdgeInsets.only(top: 20),
-            child:  TextField(
-              decoration: InputDecoration(
-                labelText: 'Senha', 
+            padding: const EdgeInsets.only(
+              top: 10,
+            ),
+            child: TextField(
+              decoration: const InputDecoration(
+                labelText: 'Senha',
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(
                     Radius.circular(
@@ -66,18 +65,31 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                 ),
-                labelStyle: TextStyle(color: Colors.grey),
-                constraints: BoxConstraints(maxWidth: 380),
-              ), controller: controladorSenha
+                labelStyle: TextStyle(
+                  color: Colors.grey,
+                ),
+                constraints: BoxConstraints(
+                  maxWidth: 380,
+                ),
+              ),
+              controller: controladorSenha,
+            ),
+          ),
+          const Padding(
+            padding: EdgeInsets.only(
+              top: 20,
             ),
           ),
           ElevatedButton(
-            onPressed: (){
-                 String name = controladorName.text;
-                   String? senha = controladorSenha.text;
-              },
-            child: Text(
+            onPressed: () {
+              String name = controladorName.text;
+              String senha = controladorSenha.text;
+            },
+            child: const Text(
               'Salvar',
+              style: TextStyle(
+                color: Colors.black,
+              ),
             ),
           ),
         ],
@@ -85,14 +97,11 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: Colors.white,
     );
   }
-  
 }
-class Funcionario {
-  final String name;
-  final int senha;
 
-  Funcionario(
-    this.name,
-    this.senha
-  );
+class Usuario {
+  String? name;
+  String? senha;
+
+  Usuario({required this.name, required this.senha});
 }
