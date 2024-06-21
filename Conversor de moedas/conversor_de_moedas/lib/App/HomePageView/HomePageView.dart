@@ -36,10 +36,5 @@ class HomePageView extends StatelessWidget {
         ),
       ),
     );
-    //Padding(padding: EdgeInsets.only(top: 500)),
   }
 }
-
-
-              //width: MediaQuery.of(context).size.width,
-              
