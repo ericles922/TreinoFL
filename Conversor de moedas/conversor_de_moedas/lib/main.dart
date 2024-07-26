@@ -1,11 +1,9 @@
-import 'package:conversor_de_moedas/App/HomePageView/HomePageView.dart';
+import 'package:conversor_de_moedas/App/HomePageView/homepageview.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
-
+  runApp(const MyApp());
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -13,7 +11,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomePageView(),
+      home: const HomePageView(),
       theme: ThemeData(useMaterial3: true),
     );
   }

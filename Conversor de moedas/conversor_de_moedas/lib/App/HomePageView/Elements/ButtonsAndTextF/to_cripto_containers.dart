@@ -1,4 +1,4 @@
-import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/Dropdownbuttons.dart';
+import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/dropdown_buttons.dart';
 import 'package:flutter/material.dart';
 
 class MoedasCont extends StatefulWidget {
@@ -16,7 +16,7 @@ class MoedasContState extends State<MoedasCont> {
       child: Column(
         children: [
           Container(
-            width: 180,
+            width: 300,
             height: 40,
             child: Row(
               children: [
@@ -28,14 +28,25 @@ class MoedasContState extends State<MoedasCont> {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 2,
                   child: Container(
-                    margin: const EdgeInsets.only(left: 10, bottom: 8),
+                    margin: const EdgeInsets.only(left: 20, bottom: 8),
                     child: const TextField(
-                      style: TextStyle(color: Colors.amber,),textAlign: TextAlign.center,decoration: InputDecoration(disabledBorder: InputBorder.none),
+                      style: TextStyle(
+                          decorationStyle: TextDecorationStyle.solid,
+                          color: Colors.amber),
+                      textAlign: TextAlign.center,
+                      decoration: InputDecoration(
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.amber,
+                          ),
+                        ),
+                      ),
+                      cursorColor: Colors.amber,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
