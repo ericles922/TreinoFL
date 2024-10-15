@@ -1,21 +1,24 @@
+import 'package:conversor_de_moedas/App/HomePageView/Controllers/home_controller.dart';
 import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/dropdown_buttons.dart';
 import 'package:flutter/material.dart';
 
-class MoedasCont extends StatefulWidget {
-  const MoedasCont({super.key});
+class MoedasMostra extends StatefulWidget {
+  final HomeController homeController;
+
+  const MoedasMostra({super.key, required this.homeController});
 
   @override
-  State<MoedasCont> createState() => MoedasContState();
+  State<MoedasMostra> createState() => MoedasMostraState();
 }
 
-class MoedasContState extends State<MoedasCont> {
+class MoedasMostraState extends State<MoedasMostra> {
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(bottom: 30),
       child: Column(
         children: [
-          Container(
+          SizedBox(
             width: 300,
             height: 40,
             child: Row(
@@ -23,30 +26,39 @@ class MoedasContState extends State<MoedasCont> {
                 Expanded(
                   flex: 1,
                   child: DropDownB(
-                    true,
-                    positionDropdown: 1,
-                  ),
+                      positionDropdown: widget.homeController.indexModeasTo,
+                      onSelected: (value) {
+                        setState(() {
+                          widget.homeController.alteraMoedasTo(value);
+                        });
+                      }),
                 ),
                 Expanded(
                   flex: 2,
                   child: Container(
-                    margin: const EdgeInsets.only(left: 20, bottom: 8),
-                    child: const TextField(
-                      style: TextStyle(
-                          decorationStyle: TextDecorationStyle.solid,
-                          color: Colors.amber),
+                    height: 300,
+                    margin: const EdgeInsets.only(
+                      left: 20,
+                      bottom: 8,
+                    ),
+                    child: TextField(
+                      controller: widget.homeController.toTextMoedas,
+                      cursorColor: Colors.amber,
+                      style: const TextStyle(color: Colors.amber),
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
+                        disabledBorder: InputBorder.none,
+                        hoverColor: Colors.amber,
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.amber,
                           ),
                         ),
                       ),
-                      cursorColor: Colors.amber,
+                      canRequestFocus: false,
                     ),
                   ),
-                ),
+                )
               ],
             ),
           ),

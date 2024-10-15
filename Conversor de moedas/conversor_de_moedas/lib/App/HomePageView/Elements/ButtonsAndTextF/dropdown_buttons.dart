@@ -1,10 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 
 //Nome de classe inciial Maiuscula
 class DropDownB extends StatefulWidget {
-  int positionDropdown;
+  final void Function(int?) onSelected;
+  final int positionDropdown;
 
-  DropDownB(value, {required this.positionDropdown, super.key});
+  const DropDownB({
+    required this.positionDropdown,
+    required this.onSelected,
+    super.key,
+  });
 
   @override
   State<DropDownB> createState() => _DropDownBState();
@@ -26,24 +33,22 @@ class _DropDownBState extends State<DropDownB> {
         value: widget.positionDropdown,
         items: const [
           DropdownMenuItem(
-              value: 1,
+              value: 0,
               child: Text("Real", style: TextStyle(color: Colors.amber))),
           DropdownMenuItem(
-              value: 2,
+              value: 1,
               child: Text("Dolar", style: TextStyle(color: Colors.amber))),
           DropdownMenuItem(
-              value: 3,
+              value: 2,
               child: Text("Euro", style: TextStyle(color: Colors.amber))),
           DropdownMenuItem(
-              value: 4,
+              value: 3,
               child: Text("Libra", style: TextStyle(color: Colors.amber))),
           DropdownMenuItem(
-              value: 5,
+              value: 4,
               child: Text("Bitcoin", style: TextStyle(color: Colors.amber)))
         ],
-        onChanged: (value) {
-          setState(() => widget.positionDropdown = value ?? 1);
-        },
+        onChanged: widget.onSelected,
       ),
     );
   }

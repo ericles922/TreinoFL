@@ -1,5 +1,7 @@
+import 'package:conversor_de_moedas/App/HomePageView/Controllers/home_controller.dart';
+import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/to_cripto_containers.dart';
 import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/from_cripto_containers.dart';
-import "package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/to_cripto_containers.dart";
+import 'package:conversor_de_moedas/App/HomePageView/Elements/convert_button.dart';
 import "package:conversor_de_moedas/repositories/repositorie_moedas_monetarias.dart";
 import 'package:flutter/material.dart';
 
@@ -12,6 +14,7 @@ class HomePageView extends StatefulWidget {
 
 class _HomePageViewState extends State<HomePageView> {
   RepositorieMoedasMonetarias repository = RepositorieMoedasMonetarias();
+  final HomeController homeController = HomeController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,31 +25,15 @@ class _HomePageViewState extends State<HomePageView> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              child: Image.asset(
-                'svg.jpg',
-                width: 320,
-                height: 320,
-              ),
+              child: Image.asset('svg.jpg', width: 320, height: 320),
             ),
-            const MoedasCont(),
-            const SizedBox(
-              height: 20,
-            ),
-            const MoedasMostra(),
+            MoedasCont(homeController: homeController),
+            const SizedBox(height: 20),
+            MoedasMostra(homeController: homeController),
             SizedBox(
               child: Align(
                 heightFactor: 10,
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
-                          const Color.fromARGB(109, 130, 123, 104))),
-                  onPressed: () {},
-                  child: const Text(
-                    "CONVERTER",
-                    style: TextStyle(color: Colors.amber),
-                  ),
-                  // style: ButtonStyle(backgroundColor: ),
-                ),
+                child: Convertbutton(homeController: homeController),
               ),
             )
           ],
