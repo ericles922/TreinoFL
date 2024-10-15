@@ -7,7 +7,6 @@ class MoedasMonetarias {
   final double bitcoin;
 
 
-
   MoedasMonetarias(
       {required this.name,
       required this.real,

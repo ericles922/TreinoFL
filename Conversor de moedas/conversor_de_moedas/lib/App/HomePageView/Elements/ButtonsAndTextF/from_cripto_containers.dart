@@ -1,14 +1,17 @@
+import 'package:conversor_de_moedas/App/HomePageView/Controllers/home_controller.dart';
 import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/dropdown_buttons.dart';
 import 'package:flutter/material.dart';
 
-class MoedasMostra extends StatefulWidget {
-  const MoedasMostra({super.key});
+class MoedasCont extends StatefulWidget {
+  final HomeController homeController;
+
+  const MoedasCont({super.key, required this.homeController});
 
   @override
-  State<MoedasMostra> createState() => MoedasMostraState();
+  State<MoedasCont> createState() => MoedasContState();
 }
 
-class MoedasMostraState extends State<MoedasMostra> {
+class MoedasContState extends State<MoedasCont> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,35 +26,35 @@ class MoedasMostraState extends State<MoedasMostra> {
                 Expanded(
                   flex: 1,
                   child: DropDownB(
-                    true,
-                    positionDropdown: 2,
+                    onSelected: (value) {
+                      setState(() {
+                        widget.homeController.alteraMoedasFrom(value);
+                      });
+                    },
+                    positionDropdown: widget.homeController.indexMoedasFrom,
                   ),
                 ),
                 Expanded(
                   flex: 2,
                   child: Container(
-                    height: 300,
-                    margin: const EdgeInsets.only(
-                      left: 20,
-                      bottom: 8,
-                    ),
-                    child: const TextField(
-                      cursorColor: Colors.amber,
-                      style: TextStyle(color: Colors.amber),
+                    margin: const EdgeInsets.only(left: 20, bottom: 8),
+                    child: TextField(
+                      controller: widget.homeController.fromTextMoedas,
+                      style: const TextStyle(
+                          decorationStyle: TextDecorationStyle.solid,
+                          color: Colors.amber),
                       textAlign: TextAlign.center,
-                      decoration: InputDecoration(
-                        disabledBorder: InputBorder.none,
-                        hoverColor: Colors.amber,
+                      decoration: const InputDecoration(
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Colors.amber,
                           ),
                         ),
                       ),
-                      canRequestFocus: false,
+                      cursorColor: Colors.amber,
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
