@@ -37,7 +37,10 @@ class MoedasContState extends State<MoedasCont> {
                 Expanded(
                   flex: 2,
                   child: Container(
+<<<<<<< HEAD
                     height: 300,
+=======
+>>>>>>> 1f2da6f26869f0437e57cd3b892c7539337b615d
                     margin: const EdgeInsets.only(left: 20, bottom: 8),
                     child: TextField(
                       controller: widget.homeController.fromTextMoedas,

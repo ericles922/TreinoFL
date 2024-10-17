@@ -7,10 +7,17 @@ class RepositorieMoedasMonetarias {
           name: 'Real',
           real: 1.0,
           dolar: 0.18,
+<<<<<<< HEAD
           euro: 0.16,
           libra: 0.14,
           bitcoin: 0.0000026),
       MoedasMonetarias(
+=======
+          euro: 0.17,
+          libra: 0.15,
+          bitcoin: 0.0000028),
+          MoedasMonetarias(
+>>>>>>> 1f2da6f26869f0437e57cd3b892c7539337b615d
           name: 'Dolar',
           real: 5.68,
           dolar: 1.09,
