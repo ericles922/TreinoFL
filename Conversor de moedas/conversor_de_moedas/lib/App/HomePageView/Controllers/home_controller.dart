@@ -86,6 +86,10 @@ class HomeController {
     } else if (fromMoedas.name == 'Bitcoin') {
       returnValue = value * toMoedas.euro;
     }
-    toTextMoedas.text = returnValue.toStringAsFixed(2);
+    if (toMoedas.name == 'Bitcoin') {
+      toTextMoedas.text = returnValue.toStringAsFixed(7);
+    } else {
+      toTextMoedas.text = returnValue.toStringAsFixed(2);
+    }
   }
 }

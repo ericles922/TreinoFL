@@ -21,23 +21,21 @@ class _HomePageViewState extends State<HomePageView> {
     //List<MoedasMonetarias> moedas = repository.index();
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              child: Image.asset('svg.jpg', width: 320, height: 320),
+      body: Column(
+        children: <Widget>[
+          SizedBox(
+            child: Image.asset('svg.jpg', width: 320, height: 320),
+          ),
+          MoedasCont(homeController: homeController),
+          const SizedBox(height: 20),
+          MoedasMostra(homeController: homeController),
+          SizedBox(
+            child: Align(
+              heightFactor: 7,
+              child: Convertbutton(homeController: homeController),
             ),
-            MoedasCont(homeController: homeController),
-            const SizedBox(height: 20),
-            MoedasMostra(homeController: homeController),
-            SizedBox(
-              child: Align(
-                heightFactor: 10,
-                child: Convertbutton(homeController: homeController),
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
       backgroundColor: const Color.fromARGB(255, 59, 63, 66),
     );
