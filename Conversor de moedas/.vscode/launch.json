@@ -1,0 +1,48 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "conversor_de_moedas",
+            "cwd": "conversor_de_moedas",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "conversor_de_moedas (profile mode)",
+            "cwd": "conversor_de_moedas",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "conversor_de_moedas (release mode)",
+            "cwd": "conversor_de_moedas",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "nubank_app",
+            "cwd": "nubank_app",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "nubank_app (profile mode)",
+            "cwd": "nubank_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "nubank_app (release mode)",
+            "cwd": "nubank_app",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

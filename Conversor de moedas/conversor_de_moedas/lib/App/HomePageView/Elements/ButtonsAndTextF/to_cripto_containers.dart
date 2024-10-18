@@ -44,14 +44,14 @@ class MoedasMostraState extends State<MoedasMostra> {
                     child: TextField(
                       controller: widget.homeController.toTextMoedas,
                       cursorColor: Colors.amber,
-                      style: const TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.amber),
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
                         disabledBorder: InputBorder.none,
-                        hoverColor: Colors.white,
+                        hoverColor: Colors.amber,
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Colors.white,
+                            color: Colors.amber,
                           ),
                         ),
                       ),

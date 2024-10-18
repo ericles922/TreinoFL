@@ -2,7 +2,7 @@ import 'package:conversor_de_moedas/App/HomePageView/Controllers/home_controller
 import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/to_cripto_containers.dart';
 import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/from_cripto_containers.dart';
 import 'package:conversor_de_moedas/App/HomePageView/Elements/convert_button.dart';
-import "package:conversor_de_moedas/repositories/repositorie_moedas_monetarias.dart";
+import "package:conversor_de_moedas/repositories/repository_moedas_monetarias.dart";
 import 'package:flutter/material.dart';
 
 class HomePageView extends StatefulWidget {
@@ -13,7 +13,7 @@ class HomePageView extends StatefulWidget {
 }
 
 class _HomePageViewState extends State<HomePageView> {
-  RepositorieMoedasMonetarias repository = RepositorieMoedasMonetarias();
+  RepositoryMoedasMonetarias repository = RepositoryMoedasMonetarias();
   final HomeController homeController = HomeController();
 
   @override

@@ -1,6 +1,6 @@
 import 'package:conversor_de_moedas/App/Models/models.dart';
 import 'package:flutter/material.dart';
-import '../../../repositories/repositorie_moedas_monetarias.dart';
+import '../../../repositories/repository_moedas_monetarias.dart';
 
 class HomeController {
   late List<MoedasMonetarias> moedas;
@@ -14,17 +14,19 @@ class HomeController {
   final TextEditingController fromTextMoedas = TextEditingController();
 
   HomeController() {
-    moedas = RepositorieMoedasMonetarias().index();
+    moedas = RepositoryMoedasMonetarias().index();
     fromMoedas = moedas[indexMoedasFrom];
     toMoedas = moedas[indexModeasTo];
   }
 
   void alteraMoedasFrom(int? value) {
-    indexMoedasFrom = value ?? 1;
+    indexMoedasFrom = value ?? 0;
+    fromMoedas = moedas[indexMoedasFrom]; // Atualiza após alteração
   }
 
   void alteraMoedasTo(int? value) {
     indexModeasTo = value ?? 1;
+    toMoedas = moedas[indexModeasTo]; // Atualiza após alteração
   }
 
   void convert() {
@@ -35,59 +37,27 @@ class HomeController {
     fromMoedas = moedas[indexMoedasFrom];
     toMoedas = moedas[indexModeasTo];
 
-    if (fromMoedas.name == 'Real') {
-      returnValue = value * toMoedas.real;
-    } else if (fromMoedas.name == 'Real') {
-      returnValue = value * toMoedas.dolar;
-    } else if (fromMoedas.name == 'Real') {
-      returnValue = value * toMoedas.libra;
-    } else if (fromMoedas.name == 'Real') {
-      returnValue = value * toMoedas.euro;
-    } else if (fromMoedas.name == 'Real') {
-      returnValue = value * toMoedas.bitcoin;
-    } else if (fromMoedas.name == 'Dolar') {
-      returnValue = value * toMoedas.dolar;
-    } else if (fromMoedas.name == 'Dolar') {
-      returnValue = value * toMoedas.real;
-    } else if (fromMoedas.name == 'Dolar') {
-      returnValue = value * toMoedas.euro;
-    } else if (fromMoedas.name == 'Dolar') {
-      returnValue = value * toMoedas.libra;
-    } else if (fromMoedas.name == 'Dolar') {
-      returnValue = value * toMoedas.bitcoin;
-    } else if (fromMoedas.name == 'Euro') {
-      returnValue = value * toMoedas.euro;
-    } else if (fromMoedas.name == 'Euro') {
-      returnValue = value * toMoedas.dolar;
-    } else if (fromMoedas.name == 'Euro') {
-      returnValue = value * toMoedas.real;
-    } else if (fromMoedas.name == 'Euro') {
-      returnValue = value * toMoedas.libra;
-    } else if (fromMoedas.name == 'Euro') {
-      returnValue = value * toMoedas.bitcoin;
-    } else if (fromMoedas.name == 'Libra') {
-      returnValue = value * toMoedas.libra;
-    } else if (fromMoedas.name == 'Libra') {
-      returnValue = value * toMoedas.dolar;
-    } else if (fromMoedas.name == 'Libra') {
-      returnValue = value * toMoedas.real;
-    } else if (fromMoedas.name == 'Libra') {
-      returnValue = value * toMoedas.euro;
-    } else if (fromMoedas.name == 'Libra') {
-      returnValue = value * toMoedas.bitcoin;
-    } else if (fromMoedas.name == 'Bitcoin') {
-      returnValue = value * toMoedas.bitcoin;
-    } else if (fromMoedas.name == 'Bitcoin') {
-      returnValue = value * toMoedas.real;
-    } else if (fromMoedas.name == 'Bitcoin') {
-      returnValue = value * toMoedas.dolar;
-    } else if (fromMoedas.name == 'Bitcoin') {
-      returnValue = value * toMoedas.libra;
-    } else if (fromMoedas.name == 'Bitcoin') {
-      returnValue = value * toMoedas.euro;
+    if (fromMoedas.name == 'Real' && toMoedas.name == 'Dolar') {
+      returnValue = value /
+          fromMoedas.dolar; // Correção: Divide o valor em reais pela taxa
+    } else if (fromMoedas.name == 'Dolar' && toMoedas.name == 'Real') {
+      returnValue =
+          value * toMoedas.real; // Conversão correta de Dólar para Real
+    } else {
+      // Lógica para outras conversões (adapte conforme necessário)
+      final conversionMap = {
+        'Real': toMoedas.real,
+        'Dolar': toMoedas.dolar,
+        'Euro': toMoedas.euro,
+        'Libra': toMoedas.libra,
+        'Bitcoin': toMoedas.bitcoin,
+      };
+
+      returnValue = value * (conversionMap[fromMoedas.name] ?? 1.0);
     }
+
     if (toMoedas.name == 'Bitcoin') {
-      toTextMoedas.text = returnValue.toStringAsFixed(7);
+      toTextMoedas.text = returnValue.toStringAsFixed(8);
     } else {
       toTextMoedas.text = returnValue.toStringAsFixed(2);
     }

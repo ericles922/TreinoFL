@@ -1,26 +1,19 @@
 import 'package:conversor_de_moedas/App/Models/models.dart';
 
-class RepositorieMoedasMonetarias {
+class RepositoryMoedasMonetarias { 
   List<MoedasMonetarias> index() {
     return <MoedasMonetarias>[
       MoedasMonetarias(
           name: 'Real',
           real: 1.0,
           dolar: 0.18,
-<<<<<<< HEAD
           euro: 0.16,
           libra: 0.14,
           bitcoin: 0.0000026),
       MoedasMonetarias(
-=======
-          euro: 0.17,
-          libra: 0.15,
-          bitcoin: 0.0000028),
-          MoedasMonetarias(
->>>>>>> 1f2da6f26869f0437e57cd3b892c7539337b615d
           name: 'Dolar',
           real: 5.68,
-          dolar: 1.09,
+          dolar: 1.0,
           euro: 0.92,
           libra: 0.77,
           bitcoin: 0.000015),
@@ -28,7 +21,7 @@ class RepositorieMoedasMonetarias {
           name: 'Euro',
           real: 5.82,
           dolar: 1.3,
-          euro: 1.20,
+          euro: 1.0,
           libra: 0.84,
           bitcoin: 0.000016),
       MoedasMonetarias(
@@ -38,12 +31,12 @@ class RepositorieMoedasMonetarias {
           euro: 1.2,
           libra: 1.0,
           bitcoin: 0.000019),
-      MoedasMonetarias(
+      MoedasMonetarias( 
         name: 'Bitcoin',
-        real: 0.0000026,
-        dolar: 0.000015,
-        euro: 0.000016,
-        libra: 0.000019,
+        real: 384179.94,
+        dolar: 67716.29,
+        euro: 62565.17,
+        libra: 51923.67,
         bitcoin: 1.0,
       ),
     ];
