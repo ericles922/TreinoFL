@@ -16,10 +16,7 @@ class _ConvertbuttonState extends State<Convertbutton> {
     return ElevatedButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          const Color.fromRGBO(255, 255, 255, 1),
-        ),
-        overlayColor: const MaterialStatePropertyAll(
-          Color.fromARGB(255, 102, 100, 100),
+          const Color.fromARGB(108, 136, 115, 59),
         ),
         foregroundColor:
             const MaterialStatePropertyAll(Color.fromARGB(255, 255, 255, 255)),
@@ -32,7 +29,7 @@ class _ConvertbuttonState extends State<Convertbutton> {
       child: const Text(
         "CONVERTER",
         style: TextStyle(
-          color: Color.fromARGB(255, 0, 0, 0),
+          color: Colors.amber,
         ),
       ),
     );

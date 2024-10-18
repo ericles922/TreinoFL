@@ -15,7 +15,7 @@ class HomeController extends ChangeNotifier {
   final RepositoryMoedasMonetarias repository = RepositoryMoedasMonetarias();
 
   HomeController() {
-    moedas = repository.index();
+    moedas = RepositoryMoedasMonetarias().index();
     fromMoedas = moedas[indexMoedasFrom];
     toMoedas = moedas[indexModeasTo];
     _atualizarTaxasIniciais();
@@ -23,12 +23,12 @@ class HomeController extends ChangeNotifier {
 
   void alteraMoedasFrom(int? value) {
     indexMoedasFrom = value ?? 0;
-    fromMoedas = moedas[indexMoedasFrom];
+    fromMoedas = moedas[indexMoedasFrom]; // Atualiza após alteração
   }
 
   void alteraMoedasTo(int? value) {
     indexModeasTo = value ?? 1;
-    toMoedas = moedas[indexModeasTo];
+    toMoedas = moedas[indexModeasTo]; // Atualiza após alteração
   }
 
   Future<void> _atualizarTaxasIniciais() async {
@@ -64,47 +64,27 @@ class HomeController extends ChangeNotifier {
     fromMoedas = moedas[indexMoedasFrom];
     toMoedas = moedas[indexModeasTo];
 
-    {
+    if (fromMoedas.name == 'Real' && toMoedas.name == 'Dolar') {
+      returnValue = value /
+          fromMoedas.dolar; // Correção: Divide o valor em reais pela taxa
+    } else if (fromMoedas.name == 'Dolar' && toMoedas.name == 'Real') {
+      returnValue =
+          value * toMoedas.real; // Conversão correta de Dólar para Real
+    } else {
+      // Lógica para outras conversões (adapte conforme necessário)
       final conversionMap = {
-        'Real': fromMoedas.real,
-        'Dolar': fromMoedas.dolar,
-        'Euro': fromMoedas.euro,
-        'Libra': fromMoedas.libra,
-        'Bitcoin': fromMoedas.bitcoin,
+        'Real': toMoedas.real,
+        'Dolar': toMoedas.dolar,
+        'Euro': toMoedas.euro,
+        'Libra': toMoedas.libra,
+        'Bitcoin': toMoedas.bitcoin,
       };
 
-      returnValue = value * (conversionMap[toMoedas.name] ?? 1.0);
+      returnValue = value * (conversionMap[fromMoedas.name] ?? 1.0);
     }
 
-    switch (toMoedas.name) {
-      case 'Real':
-        toRate = 1.0;
-        break;
-      case 'Dolar':
-        toRate = toMoedas.dolar;
-        break;
-      case 'Euro':
-        toRate = toMoedas.euro;
-        break;
-      case 'Libra':
-        toRate = toMoedas.libra;
-        break;
-      case 'Bitcoin':
-        toRate = toMoedas.bitcoin;
-        break;
-    }
-
-    print('Taxa da moeda de origem (fromRate): $fromRate');
-    print('Taxa da moeda de destino (toRate): $toRate');
-
-    if (fromRate != null && toRate != null && fromRate != 0 && toRate != 0) {
-      returnValue = value * (toRate / fromRate);
-      if (toMoedas.name == 'Bitcoin') {
-        toTextMoedas.text = returnValue.toStringAsFixed(8);
-      } else {
-        toTextMoedas.text = returnValue.toStringAsFixed(2);
-      }
-      print('Resultado da conversão: $returnValue');
+    if (toMoedas.name == 'Bitcoin') {
+      toTextMoedas.text = returnValue.toStringAsFixed(8);
     } else {
       toTextMoedas.text = 'Erro na conversão';
       print('Erro na conversão: fromRate ou toRate é nulo ou zero.');

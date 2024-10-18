@@ -54,28 +54,18 @@ class MoedasMostraState extends State<MoedasMostra> {
                     child: TextField(
                       controller: widget.homeController.toTextMoedas,
                       cursorColor: Colors.amber,
-                      style: const TextStyle(
-                        color: Colors.amber,
-                      ),
+                      style: const TextStyle(color: Colors.amber),
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
-                          disabledBorder: InputBorder.none,
-                          hoverColor: Colors.amber,
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.amber,
-                            ),
+                        disabledBorder: InputBorder.none,
+                        hoverColor: Colors.amber,
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Colors.amber,
                           ),
-                          border: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
-                          ),
-                          fillColor: Colors.amber,
-                          focusColor: Colors.amber,
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(color: Colors.amber))),
-                      readOnly: true,
+                        ),
+                      ),
+                      canRequestFocus: false,
                     ),
                   ),
                 )

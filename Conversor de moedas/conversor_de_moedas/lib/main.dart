@@ -16,22 +16,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    return ScreenUtilInit(
-      designSize: const Size(360, 690),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      builder: (_, child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          home: const HomePageView(),
-          theme: ThemeData(
-            useMaterial3: true,
-            textTheme: TextTheme(
-              bodyMedium: TextStyle(fontSize: 20.sp),
-            ),
-          ),
-        );
-      },
+    return MaterialApp(
+<<<<<<< HEAD
+      debugShowCheckedModeBanner: false,
+=======
+>>>>>>> 1f2da6f26869f0437e57cd3b892c7539337b615d
+      home: HomePageView(),
+      theme: ThemeData(useMaterial3: true),
     );
   }
 }

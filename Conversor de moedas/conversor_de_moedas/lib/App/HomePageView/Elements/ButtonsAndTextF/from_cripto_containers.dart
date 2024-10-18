@@ -42,10 +42,8 @@ class MoedasContState extends State<MoedasCont> {
                 Expanded(
                   flex: 2,
                   child: Container(
-                    height: 28.h,
-                    margin: const EdgeInsets.only(
-                      left: 20,
-                    ),
+                    height: 300,
+                    margin: const EdgeInsets.only(left: 20, bottom: 8),
                     child: TextField(
                       controller: widget.homeController.fromTextMoedas,
                       style: const TextStyle(
@@ -61,7 +59,7 @@ class MoedasContState extends State<MoedasCont> {
                         ),
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color.fromARGB(255, 194, 194, 192),
+                            color: Colors.amber,
                           ),
                         ),
                       ),
