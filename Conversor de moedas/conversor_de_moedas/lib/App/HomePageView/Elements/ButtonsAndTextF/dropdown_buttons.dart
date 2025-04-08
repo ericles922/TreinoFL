@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-//Nome de classe inciial Maiuscula
+//Nome de classe inicial Maiuscula
 class DropDownB extends StatefulWidget {
-  final void Function(int?) onSelected;
+  final void Function(String?) onSelected; // Retorna a sigla (String?)
   final int positionDropdown;
 
   const DropDownB({
@@ -16,37 +17,52 @@ class DropDownB extends StatefulWidget {
 }
 
 class _DropDownBState extends State<DropDownB> {
+  String? _selectedValue;
+  final List<String> _currencyNames = [
+    "Real",
+    "Dolar",
+    "Euro",
+    "Libra",
+    "Bitcoin"
+  ];
+  final List<String> _currencyCodes = ["BRL", "USD", "EUR", "GBP", "BTC"];
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedValue = _currencyCodes[widget.positionDropdown];
+  }
+
   @override
   Widget build(BuildContext context) {
+    ScreenUtilInit;
     return SizedBox(
-      child: DropdownButton(
+      child: DropdownButton<String>(
+        // Tipo agora é String
         alignment: Alignment.center,
-        style: const TextStyle(
-          fontSize: 18,
-        ),
+        style: const TextStyle(),
         icon: const Icon(Icons.arrow_drop_down, color: Colors.amber),
         underline: Container(height: 1, color: Colors.amber),
         dropdownColor: const Color.fromRGBO(59, 63, 66, 1),
         borderRadius: const BorderRadius.all(Radius.circular(0)),
-        value: widget.positionDropdown,
-        items: const [
-          DropdownMenuItem(
-              value: 0,
-              child: Text("Real", style: TextStyle(color: Colors.amber))),
-          DropdownMenuItem(
-              value: 1,
-              child: Text("Dolar", style: TextStyle(color: Colors.amber))),
-          DropdownMenuItem(
-              value: 2,
-              child: Text("Euro", style: TextStyle(color: Colors.amber))),
-          DropdownMenuItem(
-              value: 3,
-              child: Text("Libra", style: TextStyle(color: Colors.amber))),
-          DropdownMenuItem(
-              value: 4,
-              child: Text("Bitcoin", style: TextStyle(color: Colors.amber)))
-        ],
-        onChanged: widget.onSelected,
+        value: _selectedValue,
+        items: _currencyNames.asMap().entries.map((entry) {
+          int index = entry.key;
+          String name = entry.value;
+          String code = _currencyCodes[index];
+          return DropdownMenuItem<String>(
+            // Tipo do DropdownMenuItem é String
+            value: code, // O valor é a sigla
+            child: Text(name,
+                style: const TextStyle(color: Colors.amber)), // Exibe o nome
+          );
+        }).toList(),
+        onChanged: (String? newValue) {
+          setState(() {
+            _selectedValue = newValue;
+          });
+          widget.onSelected(newValue); // Retorna a sigla para o Widget pai
+        },
       ),
     );
   }
