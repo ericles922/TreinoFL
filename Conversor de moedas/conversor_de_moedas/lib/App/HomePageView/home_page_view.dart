@@ -32,7 +32,9 @@ class _HomePageViewState extends State<HomePageView> {
           SizedBox(
             child: Align(
               heightFactor: 7,
-              child: Convertbutton(homeController: homeController),
+              child: Convertbutton(
+                homeController: homeController,
+              ),
             ),
           )
         ],

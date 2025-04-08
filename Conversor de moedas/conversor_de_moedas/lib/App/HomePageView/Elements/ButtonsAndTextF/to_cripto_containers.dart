@@ -26,12 +26,15 @@ class MoedasMostraState extends State<MoedasMostra> {
                 Expanded(
                   flex: 1,
                   child: DropDownB(
-                      positionDropdown: widget.homeController.indexModeasTo,
-                      onSelected: (value) {
-                        setState(() {
+                    positionDropdown: widget.homeController.indexModeasTo,
+                    onSelected: (value) {
+                      setState(
+                        () {
                           widget.homeController.alteraMoedasTo(value);
-                        });
-                      }),
+                        },
+                      );
+                    },
+                  ),
                 ),
                 Expanded(
                   flex: 2,
@@ -44,18 +47,20 @@ class MoedasMostraState extends State<MoedasMostra> {
                     child: TextField(
                       controller: widget.homeController.toTextMoedas,
                       cursorColor: Colors.amber,
-                      style: const TextStyle(color: Colors.amber),
+                      style: const TextStyle(
+                        color: Colors.amber,
+                      ),
                       textAlign: TextAlign.center,
                       decoration: const InputDecoration(
-                        disabledBorder: InputBorder.none,
-                        hoverColor: Colors.amber,
-                        enabledBorder: UnderlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Colors.amber,
+                          disabledBorder: InputBorder.none,
+                          hoverColor: Colors.amber,
+                          enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Colors.amber,
+                            ),
                           ),
-                        ),
-                      ),
-                      canRequestFocus: false,
+                          focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(color: Colors.black))),
                     ),
                   ),
                 )

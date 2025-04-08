@@ -21,12 +21,12 @@ class HomeController {
 
   void alteraMoedasFrom(int? value) {
     indexMoedasFrom = value ?? 0;
-    fromMoedas = moedas[indexMoedasFrom]; // Atualiza após alteração
+    fromMoedas = moedas[indexMoedasFrom];
   }
 
   void alteraMoedasTo(int? value) {
     indexModeasTo = value ?? 1;
-    toMoedas = moedas[indexModeasTo]; // Atualiza após alteração
+    toMoedas = moedas[indexModeasTo];
   }
 
   void convert() {
@@ -37,23 +37,16 @@ class HomeController {
     fromMoedas = moedas[indexMoedasFrom];
     toMoedas = moedas[indexModeasTo];
 
-    if (fromMoedas.name == 'Real' && toMoedas.name == 'Dolar') {
-      returnValue = value /
-          fromMoedas.dolar; // Correção: Divide o valor em reais pela taxa
-    } else if (fromMoedas.name == 'Dolar' && toMoedas.name == 'Real') {
-      returnValue =
-          value * toMoedas.real; // Conversão correta de Dólar para Real
-    } else {
-      // Lógica para outras conversões (adapte conforme necessário)
+    {
       final conversionMap = {
-        'Real': toMoedas.real,
-        'Dolar': toMoedas.dolar,
-        'Euro': toMoedas.euro,
-        'Libra': toMoedas.libra,
-        'Bitcoin': toMoedas.bitcoin,
+        'Real': fromMoedas.real,
+        'Dolar': fromMoedas.dolar,
+        'Euro': fromMoedas.euro,
+        'Libra': fromMoedas.libra,
+        'Bitcoin': fromMoedas.bitcoin,
       };
 
-      returnValue = value * (conversionMap[fromMoedas.name] ?? 1.0);
+      returnValue = value * (conversionMap[toMoedas.name] ?? 1.0);
     }
 
     if (toMoedas.name == 'Bitcoin') {
