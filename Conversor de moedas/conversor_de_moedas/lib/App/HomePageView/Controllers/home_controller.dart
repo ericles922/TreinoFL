@@ -24,13 +24,11 @@ class HomeController extends ChangeNotifier {
   void alteraMoedasFrom(int? value) {
     indexMoedasFrom = value ?? 0;
     fromMoedas = moedas[indexMoedasFrom];
-    notifyListeners();
   }
 
   void alteraMoedasTo(int? value) {
     indexModeasTo = value ?? 1;
     toMoedas = moedas[indexModeasTo];
-    notifyListeners();
   }
 
   Future<void> _atualizarTaxasIniciais() async {
@@ -60,29 +58,22 @@ class HomeController extends ChangeNotifier {
     String text = fromTextMoedas.text;
     double value = double.tryParse(text) ?? 1.0;
     double returnValue = 0;
+    var toRate;
+    var fromRate;
 
     fromMoedas = moedas[indexMoedasFrom];
     toMoedas = moedas[indexModeasTo];
 
-    double? fromRate = 0.0;
-    double? toRate = 0.0;
+    {
+      final conversionMap = {
+        'Real': fromMoedas.real,
+        'Dolar': fromMoedas.dolar,
+        'Euro': fromMoedas.euro,
+        'Libra': fromMoedas.libra,
+        'Bitcoin': fromMoedas.bitcoin,
+      };
 
-    switch (fromMoedas.name) {
-      case 'Real':
-        fromRate = 1.0;
-        break;
-      case 'Dolar':
-        fromRate = fromMoedas.dolar;
-        break;
-      case 'Euro':
-        fromRate = fromMoedas.euro;
-        break;
-      case 'Libra':
-        fromRate = fromMoedas.libra;
-        break;
-      case 'Bitcoin':
-        fromRate = fromMoedas.bitcoin;
-        break;
+      returnValue = value * (conversionMap[toMoedas.name] ?? 1.0);
     }
 
     switch (toMoedas.name) {

@@ -15,14 +15,14 @@ class _ConvertbuttonState extends State<Convertbutton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ButtonStyle(
-        backgroundColor: WidgetStateProperty.all(
+        backgroundColor: MaterialStateProperty.all(
           const Color.fromRGBO(255, 255, 255, 1),
         ),
-        overlayColor: const WidgetStatePropertyAll(
+        overlayColor: const MaterialStatePropertyAll(
           Color.fromARGB(255, 102, 100, 100),
         ),
         foregroundColor:
-            const WidgetStatePropertyAll(Color.fromARGB(255, 255, 255, 255)),
+            const MaterialStatePropertyAll(Color.fromARGB(255, 255, 255, 255)),
       ),
       onPressed: () {
         setState(() {
