@@ -1,9 +1,9 @@
 import 'package:conversor_de_moedas/App/Models/models.dart';
 import 'package:flutter/material.dart';
-import '../../../repositories/repository_moedas_monetarias.dart';
+import 'package:conversor_de_moedas/repositories/repository_moedas_monetarias.dart'; // Importe o repositório
 
 class HomeController extends ChangeNotifier {
-  late List<MoedasMonetarias> moedas;
+  List<MoedasMonetarias> moedas = [];
   late MoedasMonetarias toMoedas;
   late MoedasMonetarias fromMoedas;
 
@@ -12,82 +12,129 @@ class HomeController extends ChangeNotifier {
 
   final TextEditingController toTextMoedas = TextEditingController();
   final TextEditingController fromTextMoedas = TextEditingController();
-  final RepositoryMoedasMonetarias repository = RepositoryMoedasMonetarias();
+
+  final RepositoryMoedasMonetarias _repository = RepositoryMoedasMonetarias();
 
   HomeController() {
-    moedas = RepositoryMoedasMonetarias().index();
-    fromMoedas = moedas[indexMoedasFrom];
-    toMoedas = moedas[indexModeasTo];
-    _atualizarTaxasIniciais();
+    _inicializarMoedas();
+  }
+
+  Future<void> _inicializarMoedas() async {
+    try {
+      moedas = await _repository.fetchAndIndex();
+
+      if (moedas.isNotEmpty) {
+        indexMoedasFrom = 0;
+        indexModeasTo = 1;
+        if (moedas.length <= indexModeasTo) {
+          indexModeasTo = moedas.isNotEmpty ? moedas.length - 1 : 0;
+        }
+        fromMoedas = moedas[indexMoedasFrom];
+        toMoedas = moedas[indexModeasTo];
+      } else {
+        fromMoedas = MoedasMonetarias(
+            name: 'Real',
+            real: 1.0,
+            dolar: 0.0,
+            euro: 0.0,
+            libra: 0.0,
+            bitcoin: 0.0);
+        toMoedas = MoedasMonetarias(
+            name: 'Dolar',
+            real: 0.0,
+            dolar: 1.0,
+            euro: 0.0,
+            libra: 0.0,
+            bitcoin: 0.0);
+        moedas = [fromMoedas, toMoedas];
+      }
+    } catch (e) {
+      // Em caso de erro, inicialize com valores padrão
+      fromMoedas = MoedasMonetarias(
+          name: 'Real',
+          real: 1.0,
+          dolar: 0.0,
+          euro: 0.0,
+          libra: 0.0,
+          bitcoin: 0.0);
+      toMoedas = MoedasMonetarias(
+          name: 'Dolar',
+          real: 0.0,
+          dolar: 1.0,
+          euro: 0.0,
+          libra: 0.0,
+          bitcoin: 0.0);
+      moedas = [fromMoedas, toMoedas]; // Adiciona as moedas padrão à lista
+    } finally {
+      notifyListeners(); // Notifica os ouvintes após a inicialização (sucesso ou falha)
+    }
   }
 
   void alteraMoedasFrom(int? value) {
-    indexMoedasFrom = value ?? 0;
-    fromMoedas = moedas[indexMoedasFrom]; // Atualiza após alteração
+    if (moedas.isNotEmpty &&
+        value != null &&
+        value >= 0 &&
+        value < moedas.length) {
+      indexMoedasFrom = value;
+      fromMoedas = moedas[indexMoedasFrom];
+      notifyListeners();
+      convert(); // Converte automaticamente após a mudança da moeda de origem
+    } else {}
   }
 
   void alteraMoedasTo(int? value) {
-    indexModeasTo = value ?? 1;
-    toMoedas = moedas[indexModeasTo]; // Atualiza após alteração
-  }
-
-  Future<void> _atualizarTaxasIniciais() async {
-    await repository.atualizarTaxas(toCurrency: 'USD');
-    await repository.atualizarTaxas(toCurrency: 'EUR');
-    await repository.atualizarTaxas(toCurrency: 'GBP');
-    // Lógica para buscar taxa de Bitcoin (se aplicável)
-    moedas = repository.moedas;
-    print(
-        'Lista de moedas após inicialização: ${moedas.map((m) => m.toJson()).toList()}'); // ADICIONE ESTE PRINT
-    fromMoedas = moedas[indexMoedasFrom];
-    toMoedas = moedas[indexModeasTo];
-    notifyListeners();
-  }
-
-  Future<void> atualizarTaxas({String? toCurrency}) async {
-    await repository.atualizarTaxas(toCurrency: toCurrency);
-    moedas = repository.moedas;
-    print(
-        'Lista de moedas após atualização: ${moedas.map((m) => m.toJson()).toList()}'); // ADICIONE ESTE PRINT
-    fromMoedas = moedas[indexMoedasFrom];
-    toMoedas = moedas[indexModeasTo];
-    notifyListeners();
+    if (moedas.isNotEmpty &&
+        value != null &&
+        value >= 0 &&
+        value < moedas.length) {
+      indexModeasTo = value;
+      toMoedas = moedas[indexModeasTo];
+      notifyListeners();
+      convert(); // Converte automaticamente após a mudança da moeda de destino
+    } else {}
   }
 
   Future<void> convert() async {
     String text = fromTextMoedas.text;
-    double value = double.tryParse(text) ?? 1.0;
+    double value = double.tryParse(text) ??
+        0.0; // Use 0.0 como padrão para evitar cálculos com 1.0 se o campo estiver vazio
     double returnValue = 0;
-    var toRate;
-    var fromRate;
 
-    fromMoedas = moedas[indexMoedasFrom];
-    toMoedas = moedas[indexModeasTo];
-
-    if (fromMoedas.name == 'Real' && toMoedas.name == 'Dolar') {
-      returnValue = value /
-          fromMoedas.dolar; // Correção: Divide o valor em reais pela taxa
-    } else if (fromMoedas.name == 'Dolar' && toMoedas.name == 'Real') {
-      returnValue =
-          value * toMoedas.real; // Conversão correta de Dólar para Real
-    } else {
-      // Lógica para outras conversões (adapte conforme necessário)
-      final conversionMap = {
-        'Real': toMoedas.real,
-        'Dolar': toMoedas.dolar,
-        'Euro': toMoedas.euro,
-        'Libra': toMoedas.libra,
-        'Bitcoin': toMoedas.bitcoin,
-      };
-
-      returnValue = value * (conversionMap[fromMoedas.name] ?? 1.0);
+    // Se as moedas são as mesmas, o valor é o mesmo
+    if (fromMoedas.name == toMoedas.name) {
+      toTextMoedas.text = value.toStringAsFixed(2);
+      return;
     }
 
+    // Acessa as taxas de conversão diretamente do objeto fromMoedas,
+    // que já contém as taxas relativas a outras moedas.
+    // Usamos um switch para determinar qual taxa aplicar.
+    switch (toMoedas.name) {
+      case 'Real':
+        returnValue = value * fromMoedas.real;
+        break;
+      case 'Dolar':
+        returnValue = value * fromMoedas.dolar;
+        break;
+      case 'Euro':
+        returnValue = value * fromMoedas.euro;
+        break;
+      case 'Libra':
+        returnValue = value * fromMoedas.libra;
+        break;
+      case 'Bitcoin':
+        returnValue = value * fromMoedas.bitcoin;
+        break;
+      default:
+        toTextMoedas.text = 'Erro: Moeda de destino desconhecida.';
+        return;
+    }
+
+    // Formata o resultado com base na moeda de destino (Bitcoin com mais casas decimais)
     if (toMoedas.name == 'Bitcoin') {
       toTextMoedas.text = returnValue.toStringAsFixed(8);
     } else {
-      toTextMoedas.text = 'Erro na conversão';
-      print('Erro na conversão: fromRate ou toRate é nulo ou zero.');
+      toTextMoedas.text = returnValue.toStringAsFixed(2);
     }
   }
 }

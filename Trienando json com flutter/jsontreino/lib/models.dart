@@ -22,13 +22,10 @@ class RepositoryMoedasMonetarias {
       if (response.statusCode == 200) {
         return RetornoMoedasMonetarias.fromJson(response.data);
       } else {
-        print(
-            'Erro na requisição: ${response.statusCode} - ${response.statusMessage}');
         return null;
       }
     } catch (e) {
-      print('Erro ao buscar taxas de câmbio: $e');
-      return null;
+      throw Exception('Erro ao buscar taxas de câmbio: $e');
     }
   }
 }
@@ -78,18 +75,4 @@ class Data {
     return data;
   }
 
-  void main() async {
-    final repository = RepositoryMoedasMonetarias();
-    final rates = await repository.getLatestRates(
-        currencies: 'BRL,CAD,EUR', baseCurrency: 'USD');
-
-    if (rates != null && rates.data != null) {
-      print('Taxas de câmbio (base USD):');
-      print('BRL: ${rates.data?.bRL}');
-      print('CAD: ${rates.data?.cAD}');
-      print('EUR: ${rates.data?.eUR}');
-    } else {
-      print('Falha ao obter as taxas de câmbio.');
-    }
-  }
 }

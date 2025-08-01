@@ -38,7 +38,6 @@ class _DropDownBState extends State<DropDownB> {
     ScreenUtilInit;
     return SizedBox(
       child: DropdownButton<String>(
-        // Tipo agora é String
         alignment: Alignment.center,
         style: const TextStyle(),
         icon: const Icon(Icons.arrow_drop_down, color: Colors.amber),

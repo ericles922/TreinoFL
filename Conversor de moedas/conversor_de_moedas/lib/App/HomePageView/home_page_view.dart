@@ -4,6 +4,7 @@ import 'package:conversor_de_moedas/App/HomePageView/Elements/ButtonsAndTextF/fr
 import 'package:conversor_de_moedas/App/HomePageView/Elements/convert_button.dart';
 import "package:conversor_de_moedas/repositories/repository_moedas_monetarias.dart";
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePageView extends StatefulWidget {
   const HomePageView({super.key});
@@ -24,10 +25,17 @@ class _HomePageViewState extends State<HomePageView> {
       body: Column(
         children: <Widget>[
           SizedBox(
-            child: Image.asset('svg.jpg', width: 320, height: 320),
+            child: Image.asset(
+              'assets/svg.jpg',
+              width: 250.w, // Usando ScreenUtil para largura responsiva
+              height: 270.h, // Usando ScreenUtil para altura responsiva
+            ),
           ),
           MoedasCont(homeController: homeController),
-          const SizedBox(height: 20),
+          SizedBox(
+            height: 50.h,
+            width: 50.w,
+          ),
           MoedasMostra(homeController: homeController),
           SizedBox(
             child: Align(
@@ -36,7 +44,7 @@ class _HomePageViewState extends State<HomePageView> {
                 homeController: homeController,
               ),
             ),
-          )
+          ),
         ],
       ),
       backgroundColor: const Color.fromARGB(255, 59, 63, 66),
